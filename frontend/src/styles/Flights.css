@@ -1,0 +1,216 @@
+.flights-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.flights-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 28px;
+}
+
+.search-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.search-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.search-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 24px;
+  height: 42px;
+}
+
+.search-button:hover {
+  background-color: #357abd;
+}
+
+.flights-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loading,
+.no-flights {
+  text-align: center;
+  padding: 30px;
+  font-size: 18px;
+  color: #666;
+}
+
+.flights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.flight-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.flight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+}
+
+.flight-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.flight-number {
+  color: #666;
+  font-size: 14px;
+}
+
+.flight-details {
+  padding: 20px;
+}
+
+.flight-route {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.flight-city {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.city-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.city-time {
+  color: #666;
+  font-size: 14px;
+}
+
+.flight-arrow {
+  font-size: 24px;
+  color: #999;
+}
+
+.flight-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.info-item {
+  flex: 1;
+  min-width: 150px;
+}
+
+.info-label {
+  font-weight: bold;
+  color: #666;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.info-value {
+  color: #333;
+}
+
+.flight-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #eee;
+}
+
+.flight-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4a90e2;
+}
+
+.book-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.book-button:hover {
+  background-color: #357abd;
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+  }
+
+  .search-button {
+    margin-top: 10px;
+  }
+
+  .flight-route {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .flight-arrow {
+    transform: rotate(90deg);
+  }
+}

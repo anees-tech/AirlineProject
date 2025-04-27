@@ -1,0 +1,204 @@
+.booking-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.booking-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 28px;
+}
+
+.flight-summary {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.flight-summary h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.summary-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.summary-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.summary-label {
+  font-weight: bold;
+  width: 100px;
+  color: #666;
+}
+
+.summary-value {
+  flex: 1;
+}
+
+.booking-form {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group select,
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.seats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.seat-input {
+  margin-bottom: 10px;
+}
+
+.seat-input label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.price-summary {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.price-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.cancel-button,
+.confirm-button {
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.cancel-button {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background-color: #e1e1e1;
+}
+
+.confirm-button {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.confirm-button:hover {
+  background-color: #357abd;
+}
+
+.confirm-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.booking-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.booking-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 50px auto;
+  max-width: 600px;
+}
+
+.booking-success h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.loading {
+  text-align: center;
+  padding: 30px;
+  font-size: 18px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .summary-details {
+    grid-template-columns: 1fr;
+  }
+
+  .seats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cancel-button,
+  .confirm-button {
+    width: 100%;
+  }
+}
