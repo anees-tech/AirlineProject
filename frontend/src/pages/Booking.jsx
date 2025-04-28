@@ -1,71 +1,57 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
 import "../styles/Booking.css"
+import { dummyFlights } from "../data/dummyData"
 
-function Booking({ user, setCurrentPage }) {
+function Booking({ user }) {
+  const { flightId } = useParams()
+  const navigate = useNavigate()
+
   const [flight, setFlight] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState("")
   const [bookingData, setBookingData] = useState({
     passengers: 1,
     seatClass: "economy",
-    seats: [],
+    seats: ["A1"],
   })
-  const [bookingSuccess, setBookingSuccess] = useState(false)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   useEffect(() => {
     if (!user) {
-      setCurrentPage("login")
+      navigate("/login")
       return
     }
 
-    const flightId = localStorage.getItem("selectedFlight")
-    if (!flightId) {
-      setCurrentPage("flights")
+    const selectedFlight = dummyFlights.find((f) => f._id === flightId)
+
+    if (!selectedFlight) {
+      console.error("Dummy flight not found for ID:", flightId)
+      navigate("/flights")
       return
     }
 
-    fetchFlightDetails(flightId)
-  }, [user, setCurrentPage])
+    setFlight(selectedFlight)
 
-  const fetchFlightDetails = async (flightId) => {
-    try {
-      setLoading(true)
-      const response = await fetch(`http://localhost:5000/api/flights/${flightId}`)
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to fetch flight details")
-      }
-
-      setFlight(data)
-
-      // Initialize seats array based on passenger count
-      setBookingData((prev) => ({
-        ...prev,
-        seats: Array(prev.passengers)
-          .fill("")
-          .map((_, i) => `${String.fromCharCode(65 + Math.floor(i / 6))}${(i % 6) + 1}`),
-      }))
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
+    setBookingData((prev) => ({
+      ...prev,
+      seats: Array(prev.passengers)
+        .fill("")
+        .map((_, i) => `Seat ${i + 1}`),
+    }))
+  }, [user, flightId, navigate])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
 
     if (name === "passengers") {
-      const passengerCount = Number.parseInt(value)
+      const passengerCount = Number.parseInt(value) || 1
       setBookingData({
         ...bookingData,
         passengers: passengerCount,
         seats: Array(passengerCount)
           .fill("")
-          .map((_, i) => `${String.fromCharCode(65 + Math.floor(i / 6))}${(i % 6) + 1}`),
+          .map((_, i) => bookingData.seats[i] || `Seat ${i + 1}`),
       })
     } else {
       setBookingData({
@@ -84,92 +70,61 @@ function Booking({ user, setCurrentPage }) {
     })
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (!user) {
-      setCurrentPage("login")
+    if (!user || !flight) {
+      navigate("/login")
       return
     }
 
-    try {
-      setLoading(true)
+    console.log("Simulating booking submission with data:", {
+      flightId: flight._id,
+      userId: user._id,
+      ...bookingData,
+      totalPrice: calculateTotalPrice(),
+    })
 
-      const response = await fetch("http://localhost:5000/api/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          flightId: flight._id,
-          userId: user._id,
-          passengers: bookingData.passengers,
-          seatClass: bookingData.seatClass,
-          seats: bookingData.seats,
-          totalPrice: calculateTotalPrice(),
-        }),
-      })
+    setShowSuccessMessage(true)
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to create booking")
-      }
-
-      setBookingSuccess(true)
-      localStorage.removeItem("selectedFlight")
-
-      // Redirect to dashboard after 3 seconds
-      setTimeout(() => {
-        setCurrentPage("dashboard")
-      }, 3000)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
+    setTimeout(() => {
+      navigate("/dashboard")
+    }, 3000)
   }
 
   const calculateTotalPrice = () => {
     if (!flight) return 0
 
-    const basePrice = flight.price
+    const basePrice = flight.price || 0
 
-    // Apply multiplier based on seat class
     const classMultiplier = {
       economy: 1,
       business: 1.5,
       first: 2.5,
     }
+    const multiplier = classMultiplier[bookingData.seatClass] || 1
 
-    return basePrice * bookingData.passengers * classMultiplier[bookingData.seatClass]
+    return basePrice * bookingData.passengers * multiplier
   }
 
   const formatDate = (dateString) => {
+    if (!dateString) return "N/A"
     const options = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }
     return new Date(dateString).toLocaleDateString(undefined, options)
   }
 
-  if (loading) {
-    return <div className="loading">Loading booking details...</div>
-  }
-
-  if (error) {
-    return <div className="booking-error">{error}</div>
-  }
-
-  if (bookingSuccess) {
+  if (showSuccessMessage) {
     return (
       <div className="booking-success">
         <h2>Booking Successful!</h2>
-        <p>Your flight has been booked successfully.</p>
-        <p>You will be redirected to your dashboard in a few seconds...</p>
+        <p>Your flight booking is simulated.</p>
+        <p>Redirecting to your dashboard...</p>
       </div>
     )
   }
 
   if (!flight) {
-    return <div className="booking-error">Flight not found. Please select a flight first.</div>
+    return <div className="loading">Loading flight details...</div>
   }
 
   return (
@@ -210,7 +165,7 @@ function Booking({ user, setCurrentPage }) {
         <div className="form-group">
           <label htmlFor="passengers">Number of Passengers</label>
           <select id="passengers" name="passengers" value={bookingData.passengers} onChange={handleInputChange}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+            {[1, 2, 3, 4, 5, 6].map((num) => (
               <option key={num} value={num}>
                 {num}
               </option>
@@ -228,17 +183,18 @@ function Booking({ user, setCurrentPage }) {
         </div>
 
         <div className="form-group">
-          <label>Seat Selection</label>
+          <label>Seat Selection (Example)</label>
           <div className="seats-container">
             {bookingData.seats.map((seat, index) => (
               <div key={index} className="seat-input">
-                <label htmlFor={`seat-${index}`}>Passenger {index + 1}</label>
+                <label htmlFor={`seat-${index}`}>Passenger {index + 1} Seat</label>
                 <input
                   type="text"
                   id={`seat-${index}`}
                   value={seat}
                   onChange={(e) => handleSeatChange(index, e.target.value)}
-                  placeholder="e.g. A1, B3"
+                  placeholder="e.g. 12A"
+                  required
                 />
               </div>
             ))}
@@ -249,13 +205,13 @@ function Booking({ user, setCurrentPage }) {
           <div className="price-row">
             <span>Base Price:</span>
             <span>
-              ${flight.price} × {bookingData.passengers} passenger(s)
+              ${flight.price?.toFixed(2)} × {bookingData.passengers} passenger(s)
             </span>
           </div>
           {bookingData.seatClass !== "economy" && (
             <div className="price-row">
-              <span>Class Upgrade:</span>
-              <span>{bookingData.seatClass === "business" ? "50%" : "150%"} surcharge</span>
+              <span>Class Upgrade ({bookingData.seatClass}):</span>
+              <span>{bookingData.seatClass === "business" ? "+50%" : "+150%"}</span>
             </div>
           )}
           <div className="price-total">
@@ -265,11 +221,11 @@ function Booking({ user, setCurrentPage }) {
         </div>
 
         <div className="form-actions">
-          <button type="button" className="cancel-button" onClick={() => setCurrentPage("flights")}>
+          <button type="button" className="cancel-button" onClick={() => navigate("/flights")}>
             Cancel
           </button>
-          <button type="submit" className="confirm-button" disabled={loading}>
-            {loading ? "Processing..." : "Confirm Booking"}
+          <button type="submit" className="confirm-button">
+            Confirm Booking (Simulated)
           </button>
         </div>
       </form>

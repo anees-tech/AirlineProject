@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
+import { useNavigate, Link } from "react-router-dom"
 import "../styles/Auth.css"
 
-function Register({ setUser, setCurrentPage }) {
+function Register({ setUser }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,6 +13,7 @@ function Register({ setUser, setCurrentPage }) {
   })
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setFormData({
@@ -25,7 +27,6 @@ function Register({ setUser, setCurrentPage }) {
     setLoading(true)
     setError("")
 
-    // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match")
       setLoading(false)
@@ -51,10 +52,9 @@ function Register({ setUser, setCurrentPage }) {
         throw new Error(data.message || "Registration failed")
       }
 
-      // Store user in localStorage
       localStorage.setItem("user", JSON.stringify(data))
       setUser(data)
-      setCurrentPage("flights")
+      navigate("/flights")
     } catch (err) {
       setError(err.message)
     } finally {
@@ -112,9 +112,9 @@ function Register({ setUser, setCurrentPage }) {
 
       <p className="auth-switch">
         Already have an account?{" "}
-        <span className="auth-link" onClick={() => setCurrentPage("login")}>
+        <Link to="/login" className="auth-link">
           Login
-        </span>
+        </Link>
       </p>
     </div>
   )

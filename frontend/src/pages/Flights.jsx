@@ -1,87 +1,24 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import "../styles/Flights.css"
+import { dummyFlights } from "../data/dummyData"
 
-function Flights({ user, setCurrentPage }) {
-  const [flights, setFlights] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState("")
-  const [searchParams, setSearchParams] = useState({
-    from: "",
-    to: "",
-    date: "",
-  })
-
-  useEffect(() => {
-    fetchFlights()
-  }, [])
-
-  const fetchFlights = async () => {
-    try {
-      setLoading(true)
-      const response = await fetch("http://localhost:5000/api/flights")
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to fetch flights")
-      }
-
-      setFlights(data)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleSearch = async (e) => {
-    e.preventDefault()
-
-    try {
-      setLoading(true)
-
-      // Build query string from search params
-      const queryParams = new URLSearchParams()
-      if (searchParams.from) queryParams.append("from", searchParams.from)
-      if (searchParams.to) queryParams.append("to", searchParams.to)
-      if (searchParams.date) queryParams.append("date", searchParams.date)
-
-      const url = `http://localhost:5000/api/flights?${queryParams.toString()}`
-      const response = await fetch(url)
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to search flights")
-      }
-
-      setFlights(data)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleInputChange = (e) => {
-    setSearchParams({
-      ...searchParams,
-      [e.target.name]: e.target.value,
-    })
-  }
+function Flights({ user }) {
+  const [flights] = useState(dummyFlights)
+  const navigate = useNavigate()
 
   const handleBooking = (flightId) => {
     if (!user) {
-      setCurrentPage("login")
+      navigate("/login")
       return
     }
-
-    // Store selected flight in localStorage for booking page
-    localStorage.setItem("selectedFlight", flightId)
-    setCurrentPage("booking")
+    navigate(`/booking/${flightId}`)
   }
 
   const formatDate = (dateString) => {
+    if (!dateString) return "N/A"
     const options = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }
     return new Date(dateString).toLocaleDateString(undefined, options)
   }
@@ -91,48 +28,11 @@ function Flights({ user, setCurrentPage }) {
       <h2 className="flights-title">Available Flights</h2>
 
       <div className="search-container">
-        <form className="search-form" onSubmit={handleSearch}>
-          <div className="search-group">
-            <label htmlFor="from">From</label>
-            <input
-              type="text"
-              id="from"
-              name="from"
-              value={searchParams.from}
-              onChange={handleInputChange}
-              placeholder="Departure City"
-            />
-          </div>
-
-          <div className="search-group">
-            <label htmlFor="to">To</label>
-            <input
-              type="text"
-              id="to"
-              name="to"
-              value={searchParams.to}
-              onChange={handleInputChange}
-              placeholder="Arrival City"
-            />
-          </div>
-
-          <div className="search-group">
-            <label htmlFor="date">Date</label>
-            <input type="date" id="date" name="date" value={searchParams.date} onChange={handleInputChange} />
-          </div>
-
-          <button type="submit" className="search-button">
-            Search Flights
-          </button>
-        </form>
+        <p>Flight search is disabled. Displaying Dummy data.</p>
       </div>
 
-      {error && <div className="flights-error">{error}</div>}
-
-      {loading ? (
-        <div className="loading">Loading flights...</div>
-      ) : flights.length === 0 ? (
-        <div className="no-flights">No flights available for your search criteria.</div>
+      {flights.length === 0 ? (
+        <div className="no-flights">No flights available.</div>
       ) : (
         <div className="flights-list">
           {flights.map((flight) => (
@@ -160,7 +60,7 @@ function Flights({ user, setCurrentPage }) {
                 <div className="flight-info">
                   <div className="info-item">
                     <span className="info-label">Duration:</span>
-                    <span className="info-value">{flight.duration} minutes</span>
+                    <span className="info-value">{flight.duration ? `${flight.duration} minutes` : "N/A"}</span>
                   </div>
 
                   <div className="info-item">
@@ -176,7 +76,7 @@ function Flights({ user, setCurrentPage }) {
               </div>
 
               <div className="flight-footer">
-                <div className="flight-price">${flight.price}</div>
+                <div className="flight-price">${flight.price?.toFixed(2)}</div>
                 <button className="book-button" onClick={() => handleBooking(flight._id)}>
                   Book Now
                 </button>

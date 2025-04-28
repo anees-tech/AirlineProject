@@ -1,15 +1,17 @@
 "use client"
 
 import { useState } from "react"
+import { useNavigate, Link } from "react-router-dom"
 import "../styles/Auth.css"
 
-function Login({ setUser, setCurrentPage }) {
+function Login({ setUser }) {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   })
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setFormData({
@@ -38,10 +40,9 @@ function Login({ setUser, setCurrentPage }) {
         throw new Error(data.message || "Login failed")
       }
 
-      // Store user in localStorage
       localStorage.setItem("user", JSON.stringify(data))
       setUser(data)
-      setCurrentPage("flights")
+      navigate("/flights")
     } catch (err) {
       setError(err.message)
     } finally {
@@ -57,8 +58,8 @@ function Login({ setUser, setCurrentPage }) {
 
       <form className="auth-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+          <label htmlFor="username">User Name</label>
+          <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
@@ -80,9 +81,9 @@ function Login({ setUser, setCurrentPage }) {
 
       <p className="auth-switch">
         Don't have an account?{" "}
-        <span className="auth-link" onClick={() => setCurrentPage("register")}>
+        <Link to="/register" className="auth-link">
           Register
-        </span>
+        </Link>
       </p>
     </div>
   )
