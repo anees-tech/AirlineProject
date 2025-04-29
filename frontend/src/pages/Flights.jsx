@@ -23,6 +23,14 @@ function Flights({ user }) {
     return new Date(dateString).toLocaleDateString(undefined, options)
   }
 
+  // Helper to format duration
+  const formatDuration = (minutes) => {
+    if (!minutes || typeof minutes !== 'number' || minutes <= 0) return "N/A";
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours}h ${mins}m`;
+  }
+
   return (
     <div className="flights-container">
       <h2 className="flights-title">Available Flights</h2>
@@ -60,12 +68,12 @@ function Flights({ user }) {
                 <div className="flight-info">
                   <div className="info-item">
                     <span className="info-label">Duration:</span>
-                    <span className="info-value">{flight.duration ? `${flight.duration} minutes` : "N/A"}</span>
+                    <span className="info-value">{formatDuration(flight.duration)}</span>
                   </div>
 
                   <div className="info-item">
                     <span className="info-label">Aircraft:</span>
-                    <span className="info-value">{flight.aircraft}</span>
+                    <span className="info-value">{flight.aircraft || "N/A"}</span>
                   </div>
 
                   <div className="info-item">

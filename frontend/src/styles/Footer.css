@@ -1,0 +1,27 @@
+.footer {
+  background-color: #f8f9fa; /* Light grey background */
+  color: #6c757d; /* Grey text */
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto; /* Push footer to the bottom */
+  border-top: 1px solid #e7e7e7; /* Subtle top border */
+  font-size: 0.9rem;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer-links {
+  margin-top: 0.5rem;
+}
+
+.footer-links a {
+  color: #007bff; /* Blue link color */
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
