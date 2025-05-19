@@ -1,0 +1,160 @@
+/* General Styles for Homepage Sections */
+.home-container .container { /* Scoping to home-container to avoid conflicts if .container is used elsewhere */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.home-container .section-heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.home-container .section-heading h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.home-container .section-heading p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.home-container .btn-primary {
+  background-color: #0066cc; /* Example color, adjust to your theme */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.home-container .btn-primary:hover {
+  background-color: #0055aa;
+  transform: translateY(-2px);
+}
+
+/* Hero Slider Styles */
+.hero-slider {
+  height: 600px; /* Adjust as needed */
+  position: relative;
+  background-color: #f0f0f0; /* Fallback if images don't load */
+}
+
+.hero-slide {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay for text readability */
+}
+
+.hero-content {
+  position: relative; /* Changed from absolute to relative to ::before */
+  text-align: center;
+  color: white;
+  z-index: 2;
+  width: 80%;
+  max-width: 800px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+/* Search Section (Wrapper for SearchForm) */
+.search-section {
+  background-color: #ffffff; /* Or a light contrasting color */
+  margin-top: -80px; /* Overlap with hero slider */
+  position: relative;
+  z-index: 10;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1100px; /* Adjust to fit your design */
+  padding: 20px; /* Add some padding inside the search section */
+  margin-bottom: 60px;
+}
+
+/* General Section Padding */
+.featured-section,
+.services-section,
+.testimonial-section,
+.news-section,
+.newsletter-section {
+  padding: 60px 0; /* Reduced padding slightly */
+}
+
+.featured-section {
+  background-color: #f8f9fa;
+}
+
+.services-section {
+  background-color: white;
+}
+
+.testimonial-section {
+  background-color: #f0f6ff; /* Light blueish tint */
+}
+
+.news-section {
+   background-color: #ffffff;
+}
+
+.newsletter-section {
+  background-color: #0055aa; /* Match button hover or a theme color */
+  color: white;
+  text-align: center;
+}
+.newsletter-section .container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+  
+  .hero-slider,
+  .hero-slide {
+    height: 450px;
+  }
+  
+  .home-container .section-heading h2 {
+    font-size: 2rem;
+  }
+  .search-section {
+    margin-top: -60px;
+    padding: 15px;
+  }
+}

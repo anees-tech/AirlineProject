@@ -1,0 +1,112 @@
+.newsletter-signup-container { /* Matches JSX */
+  padding: 50px 30px; /* Increased padding */
+  background-color: #0055aa; /* Using the darker blue from Home.css */
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+}
+
+.newsletter-signup-container h2 {
+  font-size: 2.2rem; /* Larger heading */
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.newsletter-signup-container p {
+  font-size: 1.1rem;
+  margin-bottom: 35px; /* Increased margin */
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form-element { /* Matches JSX */
+  max-width: 550px; /* Adjusted width */
+  margin: 0 auto;
+}
+
+.form-input-group {
+  display: flex;
+  border-radius: 8px; /* More rounded */
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5); /* Light border */
+}
+
+.form-input-group input {
+  flex: 1;
+  padding: 16px 20px; /* Increased padding */
+  border: none;
+  font-size: 1rem;
+  color: #333;
+}
+.form-input-group input:focus {
+  outline: none;
+}
+
+.form-input-group button {
+  padding: 16px 30px; /* Increased padding */
+  background-color: #ffc107; /* Contrasting color like gold/yellow */
+  color: #333; /* Dark text for yellow button */
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-input-group button:hover {
+  background-color: #e0a800; /* Darker shade of gold/yellow */
+}
+
+.newsletter-error {
+  color: #ffdddd;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.thank-you-message {
+  padding: 20px; /* Increased padding */
+  background-color: rgba(255, 255, 255, 0.15); /* Slightly more visible */
+  border-radius: 8px;
+  margin: 25px auto; /* Centered with margin */
+  max-width: 550px;
+}
+.thank-you-message p {
+  margin-bottom: 0;
+  font-size: 1.05rem;
+}
+
+.privacy-note {
+  font-size: 0.85rem; /* Slightly larger */
+  margin-top: 25px;
+  opacity: 0.8; /* More opaque */
+}
+
+@media (max-width: 768px) {
+  .newsletter-signup-container {
+    padding: 40px 20px;
+  }
+  .newsletter-signup-container h2 {
+    font-size: 1.8rem;
+  }
+  .newsletter-signup-container p {
+    font-size: 1rem;
+  }
+  .form-input-group {
+    flex-direction: column;
+    border: none; /* Remove border for stacked layout */
+    box-shadow: none;
+  }
+  .form-input-group input {
+    border-radius: 8px; /* Add radius to input */
+    margin-bottom: 10px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+  .form-input-group button {
+    width: 100%;
+    border-radius: 8px; /* Add radius to button */
+  }
+}

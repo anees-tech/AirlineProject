@@ -1,0 +1,61 @@
+.about-us-section {
+  padding: 60px 0;
+  background-color: #ffffff; /* Or a very light grey */
+}
+
+.about-us-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.about-us-text {
+  flex: 1;
+}
+
+.about-us-text .section-heading {
+  text-align: left; /* Align heading to the left for this layout */
+  margin-bottom: 20px;
+}
+
+.about-us-text .section-heading h2 {
+  font-size: 2.2rem; /* Slightly smaller than main section headings */
+}
+
+.about-us-text p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.about-us-text .btn-primary {
+  margin-top: 10px;
+}
+
+.about-us-image {
+  flex: 1;
+  max-width: 500px; /* Control image size */
+}
+
+.about-us-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .about-us-content {
+    flex-direction: column-reverse; /* Image on top on smaller screens */
+    text-align: center;
+  }
+  .about-us-text .section-heading {
+    text-align: center;
+  }
+  .about-us-image {
+    margin-bottom: 30px;
+    max-width: 100%;
+  }
+}

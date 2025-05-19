@@ -1,0 +1,75 @@
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.service-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 35px 30px; /* Increased padding */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.service-icon {
+  font-size: 3.2rem; /* Slightly larger icon */
+  color: #0066cc; /* Theme color */
+  margin-bottom: 25px; /* Increased margin */
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.service-card p {
+  color: #555; /* Darker grey for text */
+  line-height: 1.7; /* Improved line height */
+  margin-bottom: 25px; /* Increased margin */
+  font-size: 0.95rem;
+}
+
+.service-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 5px; /* Space for underline */
+  font-size: 1rem;
+}
+
+.service-link:after {
+  content: '';
+  position: absolute;
+  width: 0; /* Start with no width */
+  height: 2px;
+  bottom: 0;
+  left: 50%; /* Start from center */
+  transform: translateX(-50%); /* Adjust to center */
+  background-color: #0066cc;
+  transition: width 0.3s ease;
+}
+
+.service-link:hover:after {
+  width: 100%; /* Expand to full width on hover */
+}
+
+@media (max-width: 768px) {
+  .service-card {
+    padding: 30px 25px;
+  }
+  .service-icon {
+    font-size: 2.8rem;
+  }
+  .service-card h3 {
+    font-size: 1.3rem;
+  }
+}

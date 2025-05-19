@@ -1,0 +1,84 @@
+.testimonials-slider-container { /* Matches JSX */
+  padding: 20px 0;
+}
+
+.testimonial-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Slightly more pronounced shadow */
+  min-height: 320px; /* Ensure consistent height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribute space */
+  margin-bottom: 40px; /* Space for pagination */
+}
+
+.testimonial-rating {
+  color: #ffc107;
+  font-size: 1.4rem; /* Adjusted size */
+  margin-bottom: 15px;
+}
+
+.testimonial-quote {
+  font-style: italic;
+  color: #444; /* Darker text */
+  line-height: 1.7;
+  margin-bottom: 20px;
+  flex-grow: 1; /* Allow quote to take available space */
+  font-size: 0.95rem;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  margin-top: auto; /* Push author to the bottom */
+}
+
+.author-image { /* Class added in JSX */
+  width: 55px; /* Slightly smaller */
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 2px solid #eee; /* Light border for image */
+}
+
+.author-details h4 { /* Target h4 within author-details */
+  margin: 0 0 4px 0; /* Adjusted margin */
+  color: #333;
+  font-size: 1.05rem; /* Adjusted size */
+}
+
+.author-details p { /* Target p within author-details */
+  margin: 0;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Swiper navigation and pagination customization */
+.testimonialSwiper .swiper-button-next,
+.testimonialSwiper .swiper-button-prev {
+  color: #0066cc; /* Theme color */
+  transform: scale(0.8); /* Slightly smaller buttons */
+}
+.testimonialSwiper .swiper-button-next:after,
+.testimonialSwiper .swiper-button-prev:after {
+  font-size: 28px; /* Adjust icon size if needed */
+}
+
+
+.testimonialSwiper .swiper-pagination-bullet {
+  background: #ccc;
+  opacity: 0.7;
+}
+.testimonialSwiper .swiper-pagination-bullet-active {
+  background: #0066cc; /* Theme color */
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .testimonial-card {
+    min-height: 280px;
+  }
+}
