@@ -2,15 +2,19 @@ const express = require("express")
 const router = express.Router()
 const Booking = require("../models/Booking")
 const Flight = require("../models/Flight")
+const User = require("../models/User") // Make sure User model is imported
 
 // Get all bookings
 router.get("/", async (req, res) => {
   try {
-    const bookings = await Booking.find().populate("user", "name email").populate("flight").sort({ createdAt: -1 })
+    const bookings = await Booking.find()
+      .populate("user", "name email") // Populate user with name and email
+      .populate("flight", "airline flightNumber from to departureTime") // Populate flight with relevant details
+      .sort({ createdAt: -1 }) // Sort by newest first
 
     res.json(bookings)
   } catch (error) {
-    console.error("Get bookings error:", error)
+    console.error("Get all bookings error:", error)
     res.status(500).json({ message: "Server error" })
   }
 })

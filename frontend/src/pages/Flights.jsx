@@ -79,6 +79,9 @@ function Flights({ user }) {
         return `${hours}h ${minutes}m`;
     };
 
+    const handleFlightSearch = () => {
+        // Implement flight search logic here
+    };
 
     return (
         <>
@@ -122,6 +125,15 @@ function Flights({ user }) {
                         </SwiperSlide>
                     </Swiper>
                 </section>
+
+                {/* Search Form Section */}
+                <section className="search-section" id="search-form-section">
+                    <div className="container">
+                        {/* Pass a real search handler if you implement search */}
+                        <SearchForm onSearch={handleFlightSearch} />
+                    </div>
+                </section>
+
                 {/* Real-time Flights List Section */}
                 <div className="flights-container">
                     <h2 className="flights-title">Available Flights</h2>
@@ -181,12 +193,6 @@ function Flights({ user }) {
                         </div>
                     )}
                 </div>
-                {/* Search Form Section */}
-                <section className="search-section" id="search-form-section">
-                    <div className="container">
-                        <SearchForm /> {/* This form can be enhanced to trigger flight search/filtering */}
-                    </div>
-                </section>
 
                 {/* About Us Section */}
                 <AboutUs />
@@ -248,8 +254,6 @@ function Flights({ user }) {
                     </div>
                 </section>
             </div>
-
-
         </>
     );
 }
